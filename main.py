@@ -25,21 +25,15 @@ class Assistant:
         self.root.mainloop()
     def run_assistant(self):
         paud=pyaudio.PyAudio()
-        # Affichez tous les périphériques audio disponibles
-        # for i in range(paud.get_device_count()):
-        #     info = paud.get_device_info_by_index(i)
-        #     print(f"Device {i}: {info['name']}")        test  pour comprendre pourquoi pyaudio ne marchait pas
-        # print("1hihih")
-        if not os.path.exists("C:\\Users\\tbald\\Documents\\Doctorat\\Projet\\CloneGit\\Test_entre\\VocaLlama\\porcupine\\salut-robot_fr_linux_v3_0_0.ppn"):
+
+        hot_word_language_path=os.path.join(shared_data.PROJECT_DIR, "porcupine", "salut-robot_fr_windows_v3_0_0.ppn")
+        hot_word_parameters_path=os.path.join(shared_data.PROJECT_DIR, "porcupine", "porcupine_params_fr.pv")
+        if not os.path.exists(hot_word_language_path):
             print("Erreur : le fichier modèle de Porcupine n'existe pas")
-        # if not os.path.exists("/mnt/c/Users/tbald/Documents/Doctorat/Projet/CloneGit/Test_entre/porcupine/salut-robot_fr_linux_v3_0_0.ppn"):
-        #     print("Erreur : le fichier modèle de Porcupine n'existe pas") 
         try:
             print("je t'écoute")
-            porcupine=pvporcupine.create(access_key="Y6BUoOWzlEJ8y64iGM3YhLG2K9Xg8/CrNr1MX8tD64STsZdFoOlFaQ==",keyword_paths=['C:\\Users\\tbald\\Documents\\Doctorat\\Projet\\CloneGit\\Test_entre\\VocaLlama\\porcupine\\salut-robot_fr_windows_v3_0_0.ppn'],
-                                         model_path='C:\\Users\\tbald\\Documents\\Doctorat\\Projet\\CloneGit\\Test_entre\\VocaLlama\\porcupine\\porcupine_params_fr.pv')
-            # porcupine=pvporcupine.create(access_key="Y6BUoOWzlEJ8y64iGM3YhLG2K9Xg8/CrNr1MX8tD64STsZdFoOlFaQ==",keyword_paths=["/mnt/c/Users/tbald/Documents/Doctorat/Projet/CloneGit/Test_entre/porcupine/salut-robot_fr_linux_v3_0_0.ppn"],
-            #                              model_path="/mnt/c/Users/tbald/Documents/Doctorat/Projet/CloneGit/Test_entre/porcupine/porcupine_params_fr.pv")
+            porcupine=pvporcupine.create(access_key="Y6BUoOWzlEJ8y64iGM3YhLG2K9Xg8/CrNr1MX8tD64STsZdFoOlFaQ==",keyword_paths=[hot_word_language_path],
+                                         model_path=hot_word_parameters_path)
             
             audio_stream=paud.open(rate=porcupine.sample_rate,channels=shared_data.CHANNEL,format=shared_data.SAMPLE_FORMAT,input=True,frames_per_buffer=porcupine.frame_length)
             while True:
