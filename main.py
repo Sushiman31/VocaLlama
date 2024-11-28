@@ -29,7 +29,7 @@ class Assistant:
         hot_word_language_path=os.path.join(shared_data.PROJECT_DIR, "porcupine", "salut-robot_fr_windows_v3_0_0.ppn")
         hot_word_parameters_path=os.path.join(shared_data.PROJECT_DIR, "porcupine", "porcupine_params_fr.pv")
         if not os.path.exists(hot_word_language_path):
-            print("Erreur : le fichier modèle de Porcupine n'existe pas")
+            print("Error : porcupine file doesn't exist")
         try:
             print("je t'écoute")
             porcupine=pvporcupine.create(access_key="Y6BUoOWzlEJ8y64iGM3YhLG2K9Xg8/CrNr1MX8tD64STsZdFoOlFaQ==",keyword_paths=[hot_word_language_path],

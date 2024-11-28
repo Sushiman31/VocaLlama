@@ -33,10 +33,10 @@ def open_camera():
     """
     cap=cv2.VideoCapture(0)
     if not cap.isOpened():
-            print("Impossible d'ouvrir la camera")
+            print("Camera can't open")
     else:
-        print("enregistrement video en cours") 
-        print("Appuyer sur q pour quitter")
+        print("Video recording") 
+        print("Press Q to quit")
 
         fourcc=cv2.VideoWriter_fourcc(*'XVID')
         out=cv2.VideoWriter(FULL_PATH_VIDEO,fourcc,20.0,(640,480))
@@ -44,7 +44,7 @@ def open_camera():
         while shared_data.RECORD_FLAG.is_set():
             ret,frame=cap.read()
             if not ret:
-                print("Erreur : impossible de lire")
+                print("Error : impossible to read")
                 break
             
             out.write(frame)
@@ -53,7 +53,7 @@ def open_camera():
             if cv2.waitKey(1) & 0xFF==ord('q'):
                 shared_data.RECORD_FLAG.clear()
                 
-        print("enregistrement video terminé")       
+              
         cap.release()
         out.release()
         cv2.destroyAllWindows()
@@ -84,7 +84,7 @@ def audio_level(
                     if silence_start is None:
                         silence_start=time.time()
                     elif time.time()-silence_start>=2*SILENCE_DURATION:
-                        print("Silence trop long détecté")
+                        print("silence detected")
                         shared_data.RECORD_FLAG.clear()
                 else:
                     silence_start=None
@@ -94,7 +94,7 @@ def audio_level(
                     if silence_start is None:
                         silence_start=time.time()
                     elif time.time()-silence_start>=SILENCE_DURATION:
-                        print("Silence trop long détecté")
+                        print("silence detected")
                         shared_data.RECORD_FLAG.clear()
                 else:
                     silence_start=None
@@ -109,7 +109,7 @@ def audio_level(
                     if silence_start is None:
                         silence_start=time.time()
                     elif time.time()-silence_start>=SILENCE_DURATION:
-                        print("Silence trop long détecté")
+                        print("silence detected")
                         shared_data.RECORD_FLAG.clear()
                 else:
                     silence_start=None
@@ -127,7 +127,7 @@ def open_mic(
     """
     frames=[]
 
-    print("Enregistrement audio en cours")
+    print("Audio recording")
 
     while shared_data.RECORD_FLAG.is_set():
         data=audio_stream.read(1024)
@@ -138,4 +138,4 @@ def open_mic(
         wf.setframerate(16000)
         wf.writeframes(b''.join(frames))
 
-        print("enregistrement audio terminé")
+        print("Audio record ends")

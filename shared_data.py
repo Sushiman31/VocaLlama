@@ -8,5 +8,4 @@ CHANNEL=1
 RECORD_FLAG = Event()
 RUNNING_PROCESS=False
 
-# Obtenir le chemin absolu du répertoire où se trouve le script
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
