@@ -8,7 +8,8 @@ import os
 import time 
 
 import shared_data
-from input_user import open_camera,open_mic,audio_level
+from input_user import open_mic,audio_level
+# from input_user import open_camera
 from speech2text import transcript
 from llama_answer import generate_answer
 
@@ -29,7 +30,7 @@ class Assistant:
         hot_word_language_path=os.path.join(shared_data.PROJECT_DIR, "porcupine", "salut-robot_fr_windows_v3_0_0.ppn")
         hot_word_parameters_path=os.path.join(shared_data.PROJECT_DIR, "porcupine", "porcupine_params_fr.pv")
         if not os.path.exists(hot_word_language_path):
-            print("Erreur : le fichier modèle de Porcupine n'existe pas")
+            print("Error : porcupine file doesn't exist")
         try:
             print("je t'écoute")
             porcupine=pvporcupine.create(access_key="Y6BUoOWzlEJ8y64iGM3YhLG2K9Xg8/CrNr1MX8tD64STsZdFoOlFaQ==",keyword_paths=[hot_word_language_path],
@@ -48,15 +49,15 @@ class Assistant:
                     self.label.config(fg="red")
                     shared_data.RECORD_FLAG.set()
 
-                    video_thread=threading.Thread(target=open_camera)
+                    # video_thread=threading.Thread(target=open_camera)
                     audio_thread=threading.Thread(target=open_mic,args=(audio_stream,))
                     level_thread=threading.Thread(target=audio_level,args=(audio_stream,))
 
-                    video_thread.start()
+                    # video_thread.start()
                     audio_thread.start()
                     level_thread.start()
 
-                    video_thread.join()
+                    # video_thread.join()
                     audio_thread.join()
                     level_thread.join()
                     
