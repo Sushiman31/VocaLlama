@@ -8,7 +8,8 @@ import os
 import time 
 
 import shared_data
-from input_user import open_camera,open_mic,audio_level
+from input_user import open_mic,audio_level
+# from input_user import open_camera
 from speech2text import transcript
 from llama_answer import generate_answer
 
@@ -48,15 +49,15 @@ class Assistant:
                     self.label.config(fg="red")
                     shared_data.RECORD_FLAG.set()
 
-                    video_thread=threading.Thread(target=open_camera)
+                    # video_thread=threading.Thread(target=open_camera)
                     audio_thread=threading.Thread(target=open_mic,args=(audio_stream,))
                     level_thread=threading.Thread(target=audio_level,args=(audio_stream,))
 
-                    video_thread.start()
+                    # video_thread.start()
                     audio_thread.start()
                     level_thread.start()
 
-                    video_thread.join()
+                    # video_thread.join()
                     audio_thread.join()
                     level_thread.join()
                     

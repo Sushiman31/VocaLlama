@@ -1,5 +1,4 @@
 import pyaudio
-import threading
 from threading import Event
 import os
 

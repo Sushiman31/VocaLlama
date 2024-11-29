@@ -1,9 +1,6 @@
-import struct
 import pyaudio
 import cv2
 import sys
-import threading
-from threading import Event
 import wave
 import os
 import time
@@ -17,46 +14,46 @@ THRESHOLD_DB=15
 SILENCE_DURATION=1
 INPUT_FOLDER="input"
 AUDIO_FILENAME="audio_output.wav"
-VIDEO_FILENAME="output.avi"
-FULL_PATH_AUDIO=os.path.join(INPUT_FOLDER,AUDIO_FILENAME)
-FULL_PATH_VIDEO=os.path.join(INPUT_FOLDER,VIDEO_FILENAME)
+# VIDEO_FILENAME="output.avi"
+FULL_PATH_AUDIO=os.path.join(shared_data.PROJECT_DIR,INPUT_FOLDER,AUDIO_FILENAME)
+# FULL_PATH_VIDEO=os.path.join(shared_data.PROJECT_DIR,INPUT_FOLDER,VIDEO_FILENAME)
 
 if not os.path.exists(INPUT_FOLDER):
     os.makedirs(INPUT_FOLDER)
 
 
-def open_camera():
-    """
-    This function initializes the camera, checks for its availability, and records video frames while the recording flag is active.
-    It provides visual feedback to the user and handles any errors that might occur during the video capture process.
+# def open_camera():
+#     """
+#     This function initializes the camera, checks for its availability, and records video frames while the recording flag is active.
+#     It provides visual feedback to the user and handles any errors that might occur during the video capture process.
     
-    """
-    cap=cv2.VideoCapture(0)
-    if not cap.isOpened():
-            print("Camera can't open")
-    else:
-        print("Video recording") 
-        print("Press Q to quit")
+#     """
+#     cap=cv2.VideoCapture(0)
+#     if not cap.isOpened():
+#             print("Camera can't open")
+#     else:
+#         print("Video recording") 
+#         print("Press Q to quit")
 
-        fourcc=cv2.VideoWriter_fourcc(*'XVID')
-        out=cv2.VideoWriter(FULL_PATH_VIDEO,fourcc,20.0,(640,480))
+#         fourcc=cv2.VideoWriter_fourcc(*'XVID')
+#         out=cv2.VideoWriter(FULL_PATH_VIDEO,fourcc,20.0,(640,480))
 
-        while shared_data.RECORD_FLAG.is_set():
-            ret,frame=cap.read()
-            if not ret:
-                print("Error : impossible to read")
-                break
+#         while shared_data.RECORD_FLAG.is_set():
+#             ret,frame=cap.read()
+#             if not ret:
+#                 print("Error : impossible to read")
+#                 break
             
-            out.write(frame)
-            cv2.imshow('Camera',frame)
+#             out.write(frame)
+#             cv2.imshow('Camera',frame)
 
-            if cv2.waitKey(1) & 0xFF==ord('q'):
-                shared_data.RECORD_FLAG.clear()
+#             if cv2.waitKey(1) & 0xFF==ord('q'):
+#                 shared_data.RECORD_FLAG.clear()
                 
               
-        cap.release()
-        out.release()
-        cv2.destroyAllWindows()
+#         cap.release()
+#         out.release()
+#         cv2.destroyAllWindows()
 
 def audio_level(
         audio_stream):
