@@ -3,6 +3,19 @@ from gtts import gTTS
 import io
 from pydub import AudioSegment
 from pydub.playback import play
+import queue
+import threading
+
+audio_queue=queue.Queue()
+
+def audio_player():
+    while True:
+        audio=audio_queue.get()
+        if audio is None:
+            break
+        play(audio)
+        audio_queue.task_done()
+        
 
 def generate_tts(text):
     myobj = gTTS(text=text, lang="en", slow=False)
@@ -12,10 +25,13 @@ def generate_tts(text):
     mp3_buffer.seek(0)  
 
     # MP3 to Wav
-    audio = AudioSegment.from_file(mp3_buffer, format="mp3")       
-    play(audio)
+    audio = AudioSegment.from_file(mp3_buffer, format="mp3") 
+    audio_queue.put(audio)      
+
 
 def generate_answer(transcript):
+    player_thread=threading.Thread(target=audio_player)
+    player_thread.start()
     full_transcript=[{"role":"user","content":transcript}]
     
     ollama_stream=ollama.chat(
@@ -43,5 +59,10 @@ def generate_answer(transcript):
         full_text+=text_buffer
     
     full_transcript.append({"role":"assistant","content":full_text})
+
+    audio_queue.join()
+    # Ajouter un élément pour arrêter le thread
+    audio_queue.put(None)
+    player_thread.join()
     
     
