@@ -10,11 +10,16 @@ audio_queue=queue.Queue()
 
 def audio_player():
     while True:
-        audio=audio_queue.get()
-        if audio is None:
-            break
-        play(audio)
-        audio_queue.task_done()
+        try:
+            audio = audio_queue.get()
+            if audio is None:  # Condition de fin
+                break
+            play(audio)  # Lecture de l'audio
+        except Exception as e:
+            print(f"Erreur dans le lecteur audio : {e}")
+        finally:
+            audio_queue.task_done()
+
         
 
 def generate_tts(text):
