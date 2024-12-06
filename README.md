@@ -1,88 +1,86 @@
 # VocaLlama
 
-Ce projet implémente un agent **Speech-to-Speech** multi-modulaire, conçu pour effectuer une conversation vocale simple tout en permettant une grande flexibilité pour adapter ses modules selon vos besoins.
+This project implements a **Speech-to-Speech** multi-modular agent designed to enable simple vocal conversations while providing great flexibility to adapt its modules based on user needs.
 
-## Fonctionnalités principales
+## Main Features
 
-1. **Détection de l'activité vocale :**
-   - Utilise un détecteur de volume audio pour vérifier si une activité est présente avant de lancer le traitement.
+1. **Voice Activity Detection:**
+   - Uses an audio volume detector to check for activity before processing.
 
-2. **Transcription audio :**
-   - Transforme l'audio en texte grâce à l'API **Whisper**.
+2. **Audio Transcription:**
+   - Converts audio into text using the **Whisper** API.
 
-3. **Génération de texte :**
-   - Le texte est envoyé à **Llama 3** via l'API **Ollama**, qui génère une réponse.
+3. **Text Generation:**
+   - Sends the transcribed text to **Llama 3** via the **Ollama** API, which generates a response.
 
-4. **Synthèse vocale :**
-   - Convertit le texte généré en audio grâce à **gTTS (Google Text-to-Speech)**.
+4. **Voice Synthesis:**
+   - Converts the generated text into audio using **gTTS (Google Text-to-Speech)**.
 
-5. **Hotword detection :**
-   - Intègre **Porcupine** pour activer le système via des mots-clés prédéfinis.
+5. **Hotword Detection:**
+   - Integrates **Porcupine** to activate the system through predefined keywords.
 
-6. **Modularité :**
-   - Architecture modulaire qui permet d'ajouter, modifier ou supprimer des composants pour répondre à différents besoins.
+6. **Modularity:**
+   - A modular architecture allows for easy addition, modification, or removal of components to meet various objectives.
 
 ---
 
-## Installation et configuration
+## Installation and Configuration
 
-### Prérequis
+### Prerequisites
 
-- **Python 3.9 ou supérieur**
-- Compte Porcupine (nécessaire pour le système de hotword)
-- Installation d’Ollama sur votre machine
+- **Python 3.9 or higher**
+- Porcupine account (required for the hotword system)
+- Ollama installed on your machine
 
-### Étapes d'installation
+### Installation Steps
 
-1. Clonez ce dépôt :  
+1. Clone this repository:  
    ```bash
    git clone https://github.com/Sushiman31/VocaLlama.git
    cd VocaLlama
    ```
 
-2. Installez les dépendances Python :  
+2. Install the Python dependencies:  
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Configurez **Ollama** :
-   - Téléchargez Ollama depuis leur site officiel.
-   - Configurez l’API pour permettre l’accès depuis votre machine.
+3. Set up **Ollama**:
+   - Download Ollama from their official website.
+   - Configure the API to allow access from your machine.
 
-4. Configurez **Porcupine** :
-   - Créez un compte sur le site de **Porcupine**.
-   - Téléchargez vos mots-clés personnalisés et configurez leur chemin dans le projet.
+4. Set up **Porcupine**:
+   - Create an account on the **Porcupine** website.
+   - Download your custom keywords and configure their paths in the project.
 
 ---
 
-## Utilisation
+## Usage
 
-1. Démarrez l'agent :
+1. Start the agent:
    ```bash
    python main.py
    ```
 
-2. Parlez à l'agent en utilisant le mot-clé configuré. L'agent détectera l'activité, générera une réponse, et vous répondra sous forme vocale.
+2. Speak to the agent using the configured keyword. The agent will detect activity, generate a response, and reply to you vocally.
 
 ---
 
-## Limites actuelles
+## Current Limitations
 
-- **Latence :** Le système présente encore une latence significative due à l’utilisation d’APIs multiples. Une optimisation des processus est nécessaire.
-- **Dépendances externes :** Nécessite plusieurs APIs et comptes pour fonctionner (Whisper, Ollama, Porcupine, gTTS).
-
----
-
-## Points forts
-
-- **Flexibilité :** Grâce à sa modularité, vous pouvez facilement personnaliser l'agent en ajoutant de nouveaux modèles ou en remplaçant les modules existants.
-- **Facilité d'utilisation :** L'intégration des modules est simple et rapide.
+- **Latency:** The system currently has significant latency due to multiple APIs being used. Process optimization is needed.
+- **External Dependencies:** Requires multiple APIs and accounts to function (Whisper, Ollama, Porcupine, gTTS).
 
 ---
 
-## Améliorations futures
+## Highlights
 
-- Optimisation de la latence.
-- Intégration de modules supplémentaires (par exemple, reconnaissance des émotions ou amélioration de la qualité audio).
+- **Flexibility:** Its modularity allows you to easily customize the agent by adding new models or replacing existing modules.
+- **Ease of Use:** Module integration is simple and straightforward.
 
 ---
+
+## Future Improvements
+
+- Latency optimization.
+- Integration of additional modules (e.g., emotion recognition or improved audio quality).
