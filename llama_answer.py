@@ -12,11 +12,11 @@ def audio_player():
     while True:
         try:
             audio = audio_queue.get()
-            if audio is None:  # Condition de fin
+            if audio is None:  
                 break
-            play(audio)  # Lecture de l'audio
+            play(audio)  
         except Exception as e:
-            print(f"Erreur dans le lecteur audio : {e}")
+            print(f"Audio error : {e}")
         finally:
             audio_queue.task_done()
 
@@ -66,7 +66,6 @@ def generate_answer(transcript):
     full_transcript.append({"role":"assistant","content":full_text})
 
     audio_queue.join()
-    # Ajouter un élément pour arrêter le thread
     audio_queue.put(None)
     player_thread.join()
     
