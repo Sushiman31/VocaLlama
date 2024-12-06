@@ -32,8 +32,8 @@ class Assistant:
         if not os.path.exists(hot_word_language_path):
             print("Error : porcupine file doesn't exist")
         try:
-            print("je t'écoute")
-            porcupine=pvporcupine.create(access_key="Y6BUoOWzlEJ8y64iGM3YhLG2K9Xg8/CrNr1MX8tD64STsZdFoOlFaQ==",keyword_paths=[hot_word_language_path],
+            print("You can talk")
+            porcupine=pvporcupine.create(access_key="PUT YOUR POCUPINE KEY HERE",keyword_paths=[hot_word_language_path],
                                          model_path=hot_word_parameters_path)
             
             audio_stream=paud.open(rate=porcupine.sample_rate,channels=shared_data.CHANNEL,format=shared_data.SAMPLE_FORMAT,input=True,frames_per_buffer=porcupine.frame_length)
